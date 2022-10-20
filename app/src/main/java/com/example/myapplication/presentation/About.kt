@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.widget.Chronometer
 import android.widget.TextView
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +34,9 @@ import com.example.myapplication.presentation.ScreenElements.tiempo
 import com.example.myapplication.presentation.permissions.PermissionUtils
 import com.example.myapplication.presentation.permissions.SystemBroadcastReceiver
 import com.example.myapplication.ui.theme.Bordo
+import com.example.myapplication.ui.theme.darkBlue
 import com.example.myapplication.ui.theme.darkGray
+import com.example.myapplication.ui.theme.gray
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
@@ -96,13 +99,13 @@ fun About(navController: NavController,
     ){
         Column(
             modifier = Modifier
-                .fillMaxWidth(0.6f)
-                .aspectRatio(1f)
-                .border(
-                    BorderStroke(
-                        5.dp, darkGray
-                    ),
-                    RoundedCornerShape(10.dp)
+                .fillMaxWidth()
+                .fillMaxHeight()
+                //.height(580.dp)
+                //.aspectRatio(1f)
+                .background(
+                    gray,
+                    //RoundedCornerShape(10.dp)
                 ),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally

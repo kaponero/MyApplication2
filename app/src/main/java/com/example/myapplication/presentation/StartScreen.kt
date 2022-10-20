@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.presentation.ScreenElements.reset
@@ -51,163 +53,139 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                         text = "Ultimo resultado",
                 style = MaterialTheme.typography.h5,
                 color = white)
-
-            Row(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(
-                        white,
-                        RoundedCornerShape(5.dp)
-                    )
-                    .height(30.dp)
-            ) {
-                Box (
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    contentAlignment = Alignment.CenterStart
-                        ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp,0.dp,0.dp,0.dp),
-                        text = "Tiempo: ",
-                        style = MaterialTheme.typography.h6,
-                        color = gray)
+                    .background(white, RoundedCornerShape(5.dp))
+                    .height(200.dp)
+            ){
+                Row(){
+                    Box (
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp,0.dp,0.dp,0.dp),
+                            text = "Tiempo: ",
+                            style = MaterialTheme.typography.h6,
+                            color = gray)
+                    }
+                    Box(
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
+                            text = "${if(tiempo.minutos>9){
+                                tiempo.minutos
+                            }
+                            else{
+                                "0" + tiempo.minutos
+                            }
+                            } : ${if(tiempo.segundos>9){
+                                tiempo.segundos
+                            }
+                            else{
+                                "0" + tiempo.segundos
+                            }
+                            }",
+                            style = MaterialTheme.typography.h6,
+                            color = gray
+                        )
+                    }
                 }
-                Box(
-                   modifier = Modifier.fillMaxWidth(0.5f),
-                   contentAlignment = Alignment.CenterStart
-                ){
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                        text = "${if(tiempo.minutos>9){
-                            tiempo.minutos
-                        }
-                        else{
-                            "0" + tiempo.minutos
-                        }
-                        } : ${if(tiempo.segundos>9){
-                            tiempo.segundos
-                        }
-                        else{
-                            "0" + tiempo.segundos
-                        }
-                        }",
-                        style = MaterialTheme.typography.h6,
-                        color = gray
-                    )
+                Divider()
+                Row()
+                {
+                    Box (
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp,0.dp,0.dp,0.dp),
+                            text = "Compresiones: ",
+                            style = MaterialTheme.typography.h6,
+                            color = gray)
+                    }
+                    Box(
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
+                            text = "120",
+                            style = MaterialTheme.typography.h6,
+                            color = gray
+                        )
+                    }
                 }
+                //Spacer(modifier = Modifier.height(20.dp))
+                Divider()
+                Row() {
+                    Box (
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp,0.dp,0.dp,0.dp),
+                            text = "Distancia: ",
+                            style = MaterialTheme.typography.h6,
+                            color = gray)
+                    }
+                    Box(
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
+                            text = "5 cm",
+                            style = MaterialTheme.typography.h6,
+                            color = gray
+                        )
+                    }
+                }
+                //Spacer(modifier = Modifier.height(20.dp))
+                Divider()
+                Row() {
+                    Box (
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp,0.dp,0.dp,0.dp),
+                            text = "Posicion: ",
+                            style = MaterialTheme.typography.h6,
+                            color = gray)
+                    }
+                    Box(
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            modifier = Modifier
+                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
+                            text = "ok",
+                            style = MaterialTheme.typography.h6,
+                            color = gray
+                        )
+                    }
+                }
+                Divider()
             }
             Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        white,
-                        RoundedCornerShape(5.dp)
-                    )
-                    .height(30.dp)
-
-            ) {
-                Box (
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp,0.dp,0.dp,0.dp),
-                        text = "Compresiones: ",
-                        style = MaterialTheme.typography.h6,
-                        color = gray)
-                }
-                Box(
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    contentAlignment = Alignment.CenterStart
-                ){
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                        text = "120",
-                        style = MaterialTheme.typography.h6,
-                        color = gray
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        white,
-                        RoundedCornerShape(5.dp)
-                    )
-                    .height(30.dp)
-
-            ) {
-                Box (
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp,0.dp,0.dp,0.dp),
-                        text = "Distancia: ",
-                        style = MaterialTheme.typography.h6,
-                        color = gray)
-                }
-                Box(
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    contentAlignment = Alignment.CenterStart
-                ){
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                        text = "5 cm",
-                        style = MaterialTheme.typography.h6,
-                        color = gray
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        white,
-                        RoundedCornerShape(5.dp)
-                    )
-                    .height(30.dp)
-
-            ) {
-                Box (
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp,0.dp,0.dp,0.dp),
-                        text = "Posicion: ",
-                        style = MaterialTheme.typography.h6,
-                        color = gray)
-                }
-                Box(
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    contentAlignment = Alignment.CenterStart
-                ){
-                    Text(
-                        modifier = Modifier
-                            .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                        text = "ok",
-                        style = MaterialTheme.typography.h6,
-                        color = gray
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(60.dp))
             Text(
                 text = "Aprobado",
                 style = MaterialTheme.typography.h4,
-                color = green,
-                fontWeight = FontWeight.Bold
+                color = ligtgreen,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
         }
     }
