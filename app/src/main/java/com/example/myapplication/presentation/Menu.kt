@@ -20,66 +20,11 @@ import com.example.myapplication.presentation.components.BottomNavigationBar
 import com.example.myapplication.presentation.Screen
 import com.example.myapplication.presentation.Screen.*
 
-/*
-@Composable
-fun menu(
-    navController: NavController
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = Arrangement.SpaceAround
-
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_home_24),
-            contentDescription = "Home",
-            modifier = Modifier
-                .size(50.dp)
-                .clickable {
-
-                }
-        )
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_play_circle_outline_24),
-            contentDescription = "Play",
-            modifier = Modifier
-                .size(50.dp)
-                .clickable {
-                    navController.navigate(FrequencyScreen.route) {
-                        /*popUpTo(Screen.StartScreen.route) {
-                        inclusive = true
-                    }*/
-                    }
-                }
-        )
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_verified_24),
-            contentDescription = "Results",
-            modifier = Modifier
-                .size(50.dp)
-                .clickable {
-
-                }
-        )
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_help_center_24),
-            contentDescription = "About",
-            modifier = Modifier
-                .size(50.dp)
-                .clickable {
-
-                }
-        )
-    }
-}*/
 
 @Composable
 fun MainScreen(navController: NavController,
                onBluetoothStateChanged:()->Unit){
 
-    //val navController = rememberNavController()
     val navigationItems = listOf(
         StartScreen,
         FrequencyScreen,

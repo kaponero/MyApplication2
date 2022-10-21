@@ -7,14 +7,10 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.R
-import com.example.myapplication.presentation.ScreenElements.reset
-import com.example.myapplication.presentation.ScreenElements.reset_tiempo
+
 
 @Composable
 fun Navigation(onBluetoothStateChanged:()->Unit
@@ -53,10 +49,3 @@ sealed class Screen(
     object About:Screen("about_screen","Hacerca de", Icons.Filled.Info)
     object SplashScreen:Screen("splash_screen","splash",Icons.Filled.Build)
 }
-/*
-sealed class Screen(val route:String){
-    object StartScreen:Screen("start_screen")
-    object FrequencyScreen:Screen("freq_screen")//temp_humid_screen
-    object SplashScreen:Screen("splash_screen")
-}
-*/

@@ -2,8 +2,10 @@ package com.example.myapplication.presentation.ScreenElements
 
 import android.os.SystemClock
 import androidx.compose.runtime.*
+import com.example.myapplication.MainActivity.Companion.prefs
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlin.properties.Delegates
 
 @Composable
 fun rememberCountdownTimerState(
@@ -31,12 +33,8 @@ object tiempo{
     var segundos = 0
 }
 
-var reset = false
-
 fun reset_tiempo(){
-    if (reset){
-        tiempo.segundos = 0
-        tiempo.minutos = 0
-        reset = false
-    }
+
+    tiempo.segundos = 0
+    tiempo.minutos = 0
 }

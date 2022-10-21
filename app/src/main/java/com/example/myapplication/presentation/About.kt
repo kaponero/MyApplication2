@@ -1,13 +1,9 @@
 package com.example.myapplication.presentation
 
 import android.bluetooth.BluetoothAdapter
-import android.widget.Chronometer
-import android.widget.TextView
-import androidx.compose.foundation.BorderStroke
+
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -15,28 +11,23 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
+import com.example.myapplication.MainActivity.Companion.prefs
 import com.example.myapplication.data.ConnectionState
-import com.example.myapplication.presentation.ScreenElements.rememberCountdownTimerState
-import com.example.myapplication.presentation.ScreenElements.reset_tiempo
-import com.example.myapplication.presentation.ScreenElements.tiempo
+import com.example.myapplication.presentation.ScreenElements.*
 import com.example.myapplication.presentation.permissions.PermissionUtils
 import com.example.myapplication.presentation.permissions.SystemBroadcastReceiver
 import com.example.myapplication.ui.theme.Bordo
-import com.example.myapplication.ui.theme.darkBlue
 import com.example.myapplication.ui.theme.darkGray
-import com.example.myapplication.ui.theme.gray
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
@@ -46,6 +37,8 @@ fun About(navController: NavController,
     onBluetoothStateChanged:()->Unit,
     viewModel: RCPViewModel = hiltViewModel()
 ){
+    MainScreen(navController,onBluetoothStateChanged)
+
     SystemBroadcastReceiver(systemAction = BluetoothAdapter.ACTION_STATE_CHANGED){ bluetoothState ->
         val action = bluetoothState?.action ?:return@SystemBroadcastReceiver
         if (action == BluetoothAdapter.ACTION_STATE_CHANGED){
@@ -89,7 +82,10 @@ fun About(navController: NavController,
         }
     }
 
-    reset_tiempo()
+
+    LaunchedEffect(false){
+        reset_tiempo()
+    }
 
     //interfaz grafica
     Box(
@@ -104,7 +100,7 @@ fun About(navController: NavController,
                 //.height(580.dp)
                 //.aspectRatio(1f)
                 .background(
-                    gray,
+                    darkGray,
                     //RoundedCornerShape(10.dp)
                 ),
             verticalArrangement = Arrangement.Center,
@@ -175,15 +171,18 @@ fun About(navController: NavController,
                             "0" +tiempo.segundos
                             }
                         }" ,
-                        style = MaterialTheme.typography.h6
+                        style = MaterialTheme.typography.h6,
+                        color = Color.White
                     )
                     Text(
                         text = "CPM: ${viewModel.frequency}",
-                        style = MaterialTheme.typography.h6
+                        style = MaterialTheme.typography.h6,
+                        color = Color.White
                     )
                     Text(
                         text = "Profundidad: ${viewModel.compresion}",
-                        style = MaterialTheme.typography.h6
+                        style = MaterialTheme.typography.h6,
+                        color = Color.White
                     )
                     val posision_manos: String
                     if(viewModel.position == 0 ){
@@ -192,7 +191,8 @@ fun About(navController: NavController,
                         posision_manos = "Ok"
                     Text(
                         text = "Posicion: " + posision_manos,
-                        style = MaterialTheme.typography.h6
+                        style = MaterialTheme.typography.h6,
+                        color = Color.White
                     )
                 }
             }else if(bleConnectionState == ConnectionState.Disconnected){
