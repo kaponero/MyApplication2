@@ -1,26 +1,37 @@
 package com.example.myapplication.presentation
+import android.graphics.Paint
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.vector.VectorProperty
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.MainActivity.Companion.prefs
+import com.example.myapplication.R
 import com.example.myapplication.presentation.ScreenElements.tiempo
 import com.example.myapplication.ui.theme.*
-
-
-val fondo_resultado = Brush.verticalGradient(
-    listOf(Bordo, DarkBordo))
 
 
 @Composable
@@ -33,167 +44,258 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
         prefs.saveTiempo(tiempo.minutos,tiempo.segundos)
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .offset(0.dp, -30.dp),
-        contentAlignment = Alignment.Center){
-        Column(
+    Column (modifier = Modifier.fillMaxSize()) {
+        Box(
             modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .fillMaxHeight(0.8f)
-                .background(
-                    brush = fondo_resultado,
-                    RoundedCornerShape(20.dp)
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .background(Purple500)
+                .weight(1f)
+        ){
+            Column (
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
 
-        ) {
-            Text(
-                modifier = Modifier
-                    .padding(20.dp),
-                        text = "Ultimo resultado",
-                style = MaterialTheme.typography.h5,
-                color = white)
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(white, RoundedCornerShape(5.dp))
-                    .height(200.dp)
             ){
-                Row(){
-                    Box (
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp,0.dp,0.dp,0.dp),
-                            text = "Tiempo: ",
-                            style = MaterialTheme.typography.h6,
-                            color = gray)
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ){
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                            text = "${if(tiempo.minutos>9){
-                                tiempo.minutos
-                            }
-                            else{
-                                "0" + tiempo.minutos
-                            }
-                            } : ${if(tiempo.segundos>9){
-                                tiempo.segundos
-                            }
-                            else{
-                                "0" + tiempo.segundos
-                            }
-                            }",
-                            style = MaterialTheme.typography.h6,
-                            color = gray
-                        )
-                    }
-                }
-                Divider()
-                Row()
-                {
-                    Box (
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp,0.dp,0.dp,0.dp),
-                            text = "Compresiones: ",
-                            style = MaterialTheme.typography.h6,
-                            color = gray)
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ){
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                            text = "120",
-                            style = MaterialTheme.typography.h6,
-                            color = gray
-                        )
-                    }
-                }
-                //Spacer(modifier = Modifier.height(20.dp))
-                Divider()
-                Row() {
-                    Box (
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp,0.dp,0.dp,0.dp),
-                            text = "Distancia: ",
-                            style = MaterialTheme.typography.h6,
-                            color = gray)
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ){
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                            text = "5 cm",
-                            style = MaterialTheme.typography.h6,
-                            color = gray
-                        )
-                    }
-                }
-                //Spacer(modifier = Modifier.height(20.dp))
-                Divider()
-                Row() {
-                    Box (
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp,0.dp,0.dp,0.dp),
-                            text = "Posicion: ",
-                            style = MaterialTheme.typography.h6,
-                            color = gray)
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        contentAlignment = Alignment.CenterStart
-                    ){
-                        Text(
-                            modifier = Modifier
-                                .padding(20.dp, 0.dp, 0.dp, 0.dp),
-                            text = "ok",
-                            style = MaterialTheme.typography.h6,
-                            color = gray
-                        )
-                    }
-                }
-                Divider()
+                Text(
+                    text = "Puntuación",
+                    fontSize = 25.sp,
+                    modifier = Modifier
+                        .padding(15.dp),)
+                CircularIndicator(
+                    modifier = Modifier
+                        .size(150.dp),
+                    initialValue = 70,
+                    primaryColor = white,
+                    secondaryColor = Purple200 ,
+                    circleRadius = 200f
+                )
             }
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                text = "Aprobado",
-                style = MaterialTheme.typography.h4,
-                color = ligtgreen,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
         }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+        )
     }
 
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.8f),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(modifier = Modifier.height(220.dp))
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp),
+            elevation = 10.dp,
+
+        ){
+            Row(
+                modifier = Modifier
+                    .padding(15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ){
+                Column() {
+                    Text(text = "Tiempo.",
+                        textAlign = TextAlign.Center,
+                        color= gray,
+                        fontSize = 10.sp)
+                    Image(
+                        painter = painterResource(id = R.drawable.timelapse),
+                        contentDescription = "tiempo de entrenamiento",
+                        modifier = Modifier.padding(5.dp,5.dp)
+                    )
+                }
+                Text(text = "${if(tiempo.minutos>9){
+                    tiempo.minutos
+                }
+                else{
+                    "0" + tiempo.minutos
+                }
+                } : ${if(tiempo.segundos>9){
+                    tiempo.segundos
+                }
+                else{
+                    "0" + tiempo.segundos
+                }
+                } minutos",
+                    textAlign = TextAlign.Center,
+                    color= black,
+                    fontSize = 20.sp
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp),
+            elevation = 10.dp,
+            ){
+            Row(
+                modifier = Modifier
+                    .padding(15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ){
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Comp. por Min.",
+                        textAlign = TextAlign.Center,
+                        color= gray,
+                        fontSize = 10.sp)
+                    Image(
+                        painter = painterResource(id = R.drawable.lat_minute),
+                        contentDescription = "compresiones por minuto",
+                        modifier = Modifier.padding(5.dp,5.dp))
+                    Text(text = "59%",
+                        textAlign = TextAlign.Center,
+                        color= black,
+                        )
+                }
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally)
+                {
+                    Text(text = "Posición",
+                        textAlign = TextAlign.Center,
+                        color= gray,
+                        fontSize = 10.sp)
+                    Image(
+                        painter = painterResource(id = R.drawable.hand_pos),
+                        contentDescription = "posicion de la mano",
+                        modifier = Modifier.padding(5.dp,5.dp),
+                    )
+                    Text(text = "59%",
+                        textAlign = TextAlign.Center,
+                        color= black)
+                }
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Desplazamiento",
+                        textAlign = TextAlign.Center,
+                        color= gray,
+                        fontSize = 10.sp)
+                    Image(
+                        painter = painterResource(id = R.drawable.compresion),
+                        contentDescription = "compresiones",
+                        modifier = Modifier
+                            .rotate(90f)
+                            .padding(5.dp)
+                    )
+                    Text(text = "59%",
+                        textAlign = TextAlign.Center,
+                        color= black)
+                }
+            }
+        }
+    }
 }
 
+@Composable
+fun CircularIndicator(
+    modifier: Modifier = Modifier,
+    initialValue: Int,
+    primaryColor: Color,
+    secondaryColor:Color,
+    minValue:Int = 0,
+    maxValue:Int = 100,
+    circleRadius:Float,
+    //onPositionChange:(Int)->Unit
+
+){
+    var circleCenter by remember {
+        mutableStateOf(Offset.Zero)
+    }
+
+    var positionValue by remember {
+        mutableStateOf(initialValue)
+    }
+    
+    Box(modifier = modifier){
+        Canvas(modifier = Modifier
+            .fillMaxSize(),
+            ){
+            val width = size.width
+            val height = size.height
+            val circleThickness = width/25f
+            circleCenter = Offset(x = width/2f, y = height/2f)
+
+            drawCircle(
+                brush = Brush.radialGradient(
+                    listOf(
+                        primaryColor.copy(0.45f),
+                        secondaryColor.copy(0.15f)
+                    )
+                ),
+                radius = circleRadius,
+                center = circleCenter
+            )
+            drawCircle(
+                style = Stroke(
+                    width = circleThickness
+                ),
+                color = secondaryColor,
+                radius = circleRadius,
+                center = circleCenter
+            )
+            drawArc(
+                color = primaryColor,
+                startAngle = 90f,
+                sweepAngle = (360f/maxValue) * positionValue.toFloat(),
+                style = Stroke(
+                    width = circleThickness,
+                    cap = StrokeCap.Round
+                ),
+                useCenter = false,
+                size = Size(
+                    width = circleRadius * 2f,
+                    height = circleRadius * 2f
+                ),
+                topLeft = Offset(
+                    (width - circleRadius * 2f)/2f,
+                    (height - circleRadius * 2f)/2f
+                )
+            )
+            drawContext.canvas.nativeCanvas.apply {
+                drawIntoCanvas {
+                    drawText(
+                        "$positionValue",
+                        circleCenter.x,
+                        circleCenter.y + 45.dp.toPx()/3f,
+                        Paint().apply {
+                            textSize = 38.sp.toPx()
+                            textAlign = Paint.Align.CENTER
+                            color = white.toArgb()
+                            isFakeBoldText = true
+                        }
+                    )
+                }
+            }
+        }
+
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Preview(){
 
 
+    CircularIndicator(
+        modifier = Modifier
+            .size(250.dp)
+            .background(Purple500),
+        initialValue = 70,
+        primaryColor = white,
+        secondaryColor = Purple200 ,
+        circleRadius = 230f
+    )
+}
 

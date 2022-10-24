@@ -2,14 +2,15 @@ package com.example.myapplication.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
+val Purple200 = Color(0xFFED5F7D)
+val Purple500 = Color(0xFFD13751)
+val Purple700 = Color(0xFFC1182E)
 val Teal200 = Color(0xFF03DAC5)
 val Grey = Color(0xAAAAAAAA)
 val Bordo = Color(0xCCC1182E)
 val DarkBordo = Color(0x55C1182E)
 
+val black = Color(0xFF000000)
 val darkGray = Color(0xFF1a1717)
 val darkBlue = Color(0xFF18192b)
 val white = Color(0xFFF3F3F3)
