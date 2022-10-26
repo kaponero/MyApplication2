@@ -8,10 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -45,6 +42,67 @@ fun About(navController: NavController,
     viewModel: RCPViewModel = hiltViewModel()
 ){
     MainScreen(navController,onBluetoothStateChanged)
+
+    Column (modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Purple500)
+                .weight(1f)
+        ){
+            Column (
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+
+                ){
+                Text(
+                    text = "Hacerca de",
+                    fontSize = 25.sp,
+                    modifier = Modifier
+                        .padding(15.dp),
+                )
+            }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+        )
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.8f),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ){
+        Spacer(modifier = Modifier.height(50.dp))
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp),
+            elevation = 10.dp,
+
+            ){
+            Row(
+                modifier = Modifier
+                    .padding(15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ){
+                Column() {
+                    Text(text = "Aca va la parte de invormacion como la version y de que trata el proyecto. " +
+                            "Tambien podemos agregar info de como hacer el entrenamiento ",
+                        textAlign = TextAlign.Center,
+                        color= gray,
+                        fontSize = 15.sp)
+                }
+
+            }
+        }
+    }
+    /*
+    //MainScreen(navController,onBluetoothStateChanged)
 
     SystemBroadcastReceiver(systemAction = BluetoothAdapter.ACTION_STATE_CHANGED){ bluetoothState ->
         val action = bluetoothState?.action ?:return@SystemBroadcastReceiver
@@ -92,6 +150,7 @@ fun About(navController: NavController,
 
     LaunchedEffect(false){
         reset_tiempo()
+        reset_scores()
     }
 
     //interfaz grafica
@@ -165,7 +224,7 @@ fun About(navController: NavController,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ){
-                    rememberCountdownTimerState()
+                    rememberCountdownTimerState(viewModel.frequency,viewModel.compresion,viewModel.position)
                     Text(
                         text = "${if(tiempo.minutos>9){
                             tiempo.minutos
@@ -184,13 +243,14 @@ fun About(navController: NavController,
                         color = Color.White,
                         fontSize = 40.sp
                     )
-                    Spacer(modifier = Modifier.height(60.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
+                            Spacer(modifier = Modifier.height(30.dp))
                             ArcIndicator(
                                 modifier = Modifier
                                     .height(250.dp)
@@ -201,11 +261,6 @@ fun About(navController: NavController,
                                 terciaryColor = Purple700,
                                 circleRadius = 230f
                             )
-                            /*Text(
-                                text = "CPM: ${viewModel.frequency}",
-                                style = MaterialTheme.typography.h6,
-                                color = Color.White
-                            )*/
                         }
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -221,7 +276,7 @@ fun About(navController: NavController,
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     val posision_manos: String
                     if(viewModel.position == 1 ){
@@ -229,10 +284,11 @@ fun About(navController: NavController,
                             painter = painterResource(id = R.drawable.hand_ok),
                             contentDescription = "mano ok",
                             modifier = Modifier
-                                .size(100.dp)
+                                .size(80.dp)
                                 .border(
                                     BorderStroke(4.dp, white),
-                                    CircleShape)
+                                    CircleShape
+                                )
                                 .padding(10.dp)
                             )
                     }else{
@@ -240,12 +296,31 @@ fun About(navController: NavController,
                             painter = painterResource(id = R.drawable.hand_no),
                             contentDescription = "mano no",
                             modifier = Modifier
-                                .size(100.dp)
+                                .size(80.dp)
                                 .border(
                                     BorderStroke(4.dp, white),
-                                    CircleShape)
+                                    CircleShape
+                                )
                                 .padding(10.dp)
                         )}
+                    Spacer(modifier = Modifier.height(80.dp))
+                    Row() {
+                        Button(onClick = {
+                            reset_tiempo()
+                            reset_scores()
+                        }) {
+                            Text("Reiniciar")
+                        }
+                        Spacer(modifier = Modifier.width(20.dp))
+                        Button(onClick = {
+                            navController.navigate(Screen.StartScreen.route) {
+                                //popUpTo(Screen.StartScreen.route)
+                            }
+                        }) {
+                            Text("Terminar")
+                        }
+                    }
+
                 }
             }else if(bleConnectionState == ConnectionState.Disconnected){
                 Button(onClick = {
@@ -255,6 +330,6 @@ fun About(navController: NavController,
                 }
             }
         }
-    }
+    }*/
 }
 

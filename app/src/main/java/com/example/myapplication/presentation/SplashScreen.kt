@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import com.example.myapplication.MainActivity
 import com.example.myapplication.MainActivity.Companion.prefs
 import com.example.myapplication.R
+import com.example.myapplication.presentation.ScreenElements.scores
 import com.example.myapplication.presentation.ScreenElements.tiempo
 import com.example.myapplication.ui.theme.white
 import kotlinx.coroutines.delay
@@ -37,7 +38,10 @@ fun SplashScreen(navController: NavController){
 
         tiempo.minutos = prefs.getMinutos()
         tiempo.segundos = prefs.getSegundos()
-
+        scores.cpm = prefs.getCPM()
+        scores.desplaza = prefs.getDes()
+        scores.posicion = prefs.getPos()
+        //prefs.delete()
     }
 
 

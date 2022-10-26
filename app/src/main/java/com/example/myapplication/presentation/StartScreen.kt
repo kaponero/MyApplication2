@@ -30,10 +30,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.MainActivity.Companion.prefs
 import com.example.myapplication.R
+import com.example.myapplication.presentation.ScreenElements.scores
 import com.example.myapplication.presentation.ScreenElements.tiempo
 import com.example.myapplication.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlin.math.roundToInt
 
 
 @Composable
@@ -44,9 +46,10 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
     LaunchedEffect(false){
 
         prefs.saveTiempo(tiempo.minutos,tiempo.segundos)
+        prefs.saveScores(scores.cpm,scores.desplaza,scores.posicion)
     }
 
-    val puntaje = 70
+    val puntaje = ((scores.cpm).toFloat()*10/60 *.5+ (scores.desplaza).toFloat()/180*.2+ (scores.posicion).toFloat()*10/60*.3).toInt()
 
     Column (modifier = Modifier.fillMaxSize()) {
         Box(
@@ -157,7 +160,7 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                         painter = painterResource(id = R.drawable.lat_minute),
                         contentDescription = "compresiones por minuto",
                         modifier = Modifier.padding(5.dp,5.dp))
-                    Text(text = "59%",
+                    Text(text = "${((scores.cpm).toFloat()/60*10).roundToInt()}%",
                         textAlign = TextAlign.Center,
                         color= black,
                         )
@@ -175,7 +178,7 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                         contentDescription = "posicion de la mano",
                         modifier = Modifier.padding(5.dp,5.dp),
                     )
-                    Text(text = "59%",
+                    Text(text = "${((scores.posicion).toFloat()/60*10).roundToInt()}%",
                         textAlign = TextAlign.Center,
                         color= black)
                 }
@@ -194,7 +197,7 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                             .rotate(90f)
                             .padding(5.dp)
                     )
-                    Text(text = "59%",
+                    Text(text = "${((scores.desplaza).toFloat()/180).roundToInt()}%",
                         textAlign = TextAlign.Center,
                         color= black)
                 }

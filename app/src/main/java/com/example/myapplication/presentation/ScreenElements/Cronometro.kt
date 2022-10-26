@@ -9,6 +9,9 @@ import kotlin.properties.Delegates
 
 @Composable
 fun rememberCountdownTimerState(
+    cpm_value : Int,
+    des_value: Int,
+    pos_value :Int,
     endMillis : Long = 600000,
     step : Long = 1000,
 ): tiempo{
@@ -21,6 +24,14 @@ fun rememberCountdownTimerState(
                 tiempo.segundos = 0
                 tiempo.minutos+=1
             }
+            if(cpm_value>99 && cpm_value<121){
+                scores.cpm +=1
+            }
+            if (pos_value==1){
+                scores.posicion+=1
+            }
+            scores.desplaza+=des_value
+
             delay(step)
         }
     }
@@ -33,8 +44,28 @@ object tiempo{
     var segundos = 0
 }
 
+object scores{
+    var cpm:Long = 0
+    var desplaza:Long = 0
+    var posicion:Long = 0
+}
+
+fun reset_scores(){
+    scores.cpm = 0
+    scores.desplaza = 0
+    scores.posicion = 0
+}
+
 fun reset_tiempo(){
 
     tiempo.segundos = 0
     tiempo.minutos = 0
+}
+
+@Composable
+fun calculo_des(des_value : Int){
+    val maximo = remember { mutableStateOf(0) }
+    if(des_value>maximo.value){
+        maximo.value = des_value
+    }
 }
