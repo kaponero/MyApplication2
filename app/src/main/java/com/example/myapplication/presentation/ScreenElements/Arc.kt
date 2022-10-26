@@ -1,5 +1,6 @@
 package com.example.myapplication.presentation.ScreenElements
 
+import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,19 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.myapplication.presentation.CircularIndicator
-import com.example.myapplication.ui.theme.Purple200
-import com.example.myapplication.ui.theme.Purple500
-import com.example.myapplication.ui.theme.green
-import com.example.myapplication.ui.theme.white
+import com.example.myapplication.ui.theme.*
 
 @Composable
 fun ArcIndicator(
@@ -30,11 +27,28 @@ fun ArcIndicator(
     initialValue: Int,
     primaryColor: Color,
     secondaryColor: Color,
-    minValue:Int = 0,
-    maxValue:Int = 100,
+    terciaryColor: Color,
     circleRadius:Float,
 
+
 ){
+
+    var danger_colo: Color = secondaryColor
+    var ok_colo: Color = secondaryColor
+
+    var degrees_frec = 0
+    if (initialValue<45){
+        degrees_frec = initialValue*44/100
+        danger_colo = terciaryColor
+    }else if (initialValue<136){
+        degrees_frec = (initialValue - 100)*90/20 + 45
+        ok_colo = primaryColor
+    }else{
+        degrees_frec = 136/121*initialValue
+        danger_colo = terciaryColor
+    }
+
+
     var circleCenter by remember {
         mutableStateOf(Offset.Zero)
     }
@@ -72,7 +86,7 @@ fun ArcIndicator(
                 )
             )
             drawArc(
-                color = secondaryColor,
+                color = danger_colo,
                 startAngle = 180f,
                 sweepAngle = (45f),
                 style = Stroke(
@@ -90,7 +104,7 @@ fun ArcIndicator(
                 )
             )
             drawArc(
-                color = primaryColor,
+                color = ok_colo,
                 startAngle = 225f,
                 sweepAngle = (90f),
                 style = Stroke(
@@ -108,7 +122,7 @@ fun ArcIndicator(
                 )
             )
             drawArc(
-                color = secondaryColor,
+                color = danger_colo,
                 startAngle = 315f,
                 sweepAngle = (45f),
                 style = Stroke(
@@ -138,10 +152,26 @@ fun ArcIndicator(
             }
 
 
-            rotate(degrees = initialValue.toFloat(), circleCenter){
+            rotate(degrees = degrees_frec.toFloat(), circleCenter){
                 drawPath(path,
                     color=primaryColor,
                 )
+            }
+
+            drawContext.canvas.nativeCanvas.apply {
+                drawIntoCanvas {
+                    drawText(
+                        "$initialValue cpm",
+                        circleCenter.x,
+                        circleCenter.y + 60.dp.toPx()/1f,
+                        Paint().apply {
+                            textSize = 25.sp.toPx()
+                            textAlign = Paint.Align.CENTER
+                            color = white.toArgb()
+                            isFakeBoldText = true
+                        }
+                    )
+                }
             }
         }
     }
@@ -158,9 +188,10 @@ fun Preview(){
         modifier = Modifier
             .size(250.dp)
             .background(Purple500),
-        initialValue = 45,
+        initialValue = 110,
         primaryColor = white,
         secondaryColor = Purple200 ,
+        terciaryColor = Purple700,
         circleRadius = 230f
     )
 }

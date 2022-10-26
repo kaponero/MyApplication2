@@ -32,6 +32,8 @@ import com.example.myapplication.MainActivity.Companion.prefs
 import com.example.myapplication.R
 import com.example.myapplication.presentation.ScreenElements.tiempo
 import com.example.myapplication.ui.theme.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 
 
 @Composable
@@ -43,6 +45,8 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
 
         prefs.saveTiempo(tiempo.minutos,tiempo.segundos)
     }
+
+    val puntaje = 70
 
     Column (modifier = Modifier.fillMaxSize()) {
         Box(
@@ -62,10 +66,11 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                     fontSize = 25.sp,
                     modifier = Modifier
                         .padding(15.dp),)
+
                 CircularIndicator(
                     modifier = Modifier
                         .size(150.dp),
-                    initialValue = 70,
+                    initialValue = puntaje,
                     primaryColor = white,
                     secondaryColor = Purple200 ,
                     circleRadius = 200f
