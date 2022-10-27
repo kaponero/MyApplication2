@@ -4,6 +4,7 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.preference.PreferenceManager
 import androidx.activity.ComponentActivity
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+
     @Inject lateinit var bluetoothAdapter: BluetoothAdapter
 
     companion object{
@@ -32,7 +34,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
        prefs = Prefs(this)
-
         setContent {
             MyApplicationTheme {
                 //window?.statusBarColor = Color.Gray.toArgb()
@@ -43,6 +44,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
     }
 
     override fun onStart() {

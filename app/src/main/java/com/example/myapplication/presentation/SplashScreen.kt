@@ -46,8 +46,8 @@ fun SplashScreen(navController: NavController){
 
 
     LogoUner()
-    SplashIcono()
-    GLSLogo()
+    //SplashIcono()
+    //GLSLogo()
 }
 
 @Composable
@@ -56,15 +56,32 @@ fun LogoUner(){
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.SpaceAround
     ){
-        Spacer(modifier = Modifier.height(40.dp))
+        //Spacer(modifier = Modifier.height(40.dp))
         Image(
             painter = painterResource(id = R.drawable.logo_ingenieria),
             contentDescription = "Logo Engineering",
             modifier = Modifier
                 .scale(0.7f)
             )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.iconohd),
+                contentDescription = "Logo App",
+            )
+            Text(
+                text = "EntrenadorRCP",
+                fontSize = 18.sp,
+                color = Color.Black
+            )
+        }
+        Image(
+            painter = painterResource(id = R.drawable.glslogohd),
+            contentDescription = "Logo GLS",
+        )
     }
 }
 

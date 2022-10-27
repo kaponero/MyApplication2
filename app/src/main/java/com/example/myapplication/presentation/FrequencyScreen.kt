@@ -193,7 +193,7 @@ fun FrequencyScreen(navController: NavController,
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Spacer(modifier = Modifier.height(30.dp))
+                        Spacer(modifier = Modifier.height(30.dp))
                             ArcIndicator(
                                 modifier = Modifier
                                     .height(250.dp)
@@ -203,7 +203,7 @@ fun FrequencyScreen(navController: NavController,
                                 secondaryColor = Purple200,
                                 terciaryColor = Purple700,
                                 circleRadius = 230f
-                            )
+                                )
                         }
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -256,6 +256,9 @@ fun FrequencyScreen(navController: NavController,
                         }
                         Spacer(modifier = Modifier.width(20.dp))
                         Button(onClick = {
+                            if (bleConnectionState == ConnectionState.Connected){
+                                viewModel.disconnect()
+                            }
                             navController.navigate(Screen.StartScreen.route) {
                                 //popUpTo(Screen.StartScreen.route)
                             }

@@ -53,33 +53,36 @@ fun BarIndicator(
             val width = size.width
             val height = size.height
 
-            val ancho = circleRadius / 2f
+            val ancho = circleRadius / 1.5f
             val alto = circleRadius * 2f
 
             val alto_des = ancho/2.5f
 
-            val barThickness = width/100f
+            val esquinas = height/25f
+
+            val barThickness = width/20f
             barTop = Offset(x = width/2f- ancho / 2f, y = height/2f - alto/2f)
             barBot = Offset(x = width/2f- ancho / 2f, y = height/2f + alto/2f - alto_des)
 
-            var bar_colo: Color = terciaryColor
+            var bar_colo: Color = primaryColor
             var valor = initialValue
 
             drawRoundRect(
-                brush = Brush.radialGradient(
-                    listOf(
-                        primaryColor.copy(0.45f),
-                        secondaryColor.copy(0.15f)
-                    )),
                 size = Size(
                     width = ancho,
                     height = alto
                 ),
                 topLeft = barTop,
                 cornerRadius = CornerRadius(
-                    x = 5.dp.toPx(),
-                    y = 5.dp.toPx()
-                )
+                    x = esquinas.dp.toPx(),
+                    y = esquinas.dp.toPx()
+                ),
+                brush = Brush.linearGradient(
+                    listOf(
+                        primaryColor.copy(0.45f),
+                        secondaryColor.copy(0.25f)
+                    ),
+                ),
             )
 
             if(valor<0){
@@ -89,7 +92,7 @@ fun BarIndicator(
             }
 
             if (valor<5 || valor>45){
-                bar_colo = primaryColor
+                bar_colo = hand_green
             }
 
             ovalCenter = Offset(x = width/2f- ancho/2f , y = height/2f -alto/2f +(valor*(alto-alto_des)/50) )
@@ -102,8 +105,8 @@ fun BarIndicator(
                 ),
                 topLeft = ovalCenter,
                 cornerRadius = CornerRadius(
-                    x = 5.dp.toPx(),
-                    y = 5.dp.toPx()
+                    x = esquinas.dp.toPx(),
+                    y = esquinas.dp.toPx()
                 )
             )
 
@@ -118,8 +121,8 @@ fun BarIndicator(
                 ),
                 topLeft = barBot,
                 cornerRadius = CornerRadius(
-                    x = 5.dp.toPx(),
-                    y = 5.dp.toPx()
+                    x = esquinas.dp.toPx(),
+                    y = esquinas.dp.toPx()
                 )
             )
 
@@ -134,8 +137,8 @@ fun BarIndicator(
                 ),
                 topLeft = barTop,
                 cornerRadius = CornerRadius(
-                    x = 5.dp.toPx(),
-                    y = 5.dp.toPx()
+                    x = esquinas.dp.toPx(),
+                    y = esquinas.dp.toPx()
                 )
             )
 

@@ -26,3 +26,4 @@ val blue = Color(0xFF140ddb)
 val brightBlue = Color(0xFF027cf5)
 
 val ligtgreen = Color(0xFF0dFF25)
+val hand_green = Color(0xFF40E834)

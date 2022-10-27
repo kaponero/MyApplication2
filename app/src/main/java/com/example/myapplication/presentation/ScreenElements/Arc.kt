@@ -37,16 +37,20 @@ fun ArcIndicator(
     var ok_colo: Color = secondaryColor
 
     var degrees_frec = 0
-    if (initialValue<45){
+    if(initialValue<=0){
+        degrees_frec = 0
+    }else if (initialValue<100){
         degrees_frec = initialValue*44/100
         danger_colo = terciaryColor
-    }else if (initialValue<136){
+    } else if (initialValue<121){
         degrees_frec = (initialValue - 100)*90/20 + 45
-        ok_colo = primaryColor
-    }else{
+        ok_colo = hand_green
+    }else if (initialValue<160){
         degrees_frec = 136/121*initialValue
         danger_colo = terciaryColor
-    }
+    }else
+        degrees_frec = 0
+
 
 
     var circleCenter by remember {
@@ -161,7 +165,13 @@ fun ArcIndicator(
             drawContext.canvas.nativeCanvas.apply {
                 drawIntoCanvas {
                     drawText(
-                        "$initialValue cpm",
+                        "${
+                            if (initialValue<=0){
+                                0
+                            }else if(initialValue>=160){
+                                160
+                            }else
+                                initialValue} cpm",
                         circleCenter.x,
                         circleCenter.y + 60.dp.toPx()/1f,
                         Paint().apply {
@@ -188,7 +198,7 @@ fun Preview(){
         modifier = Modifier
             .size(250.dp)
             .background(Purple500),
-        initialValue = 110,
+        initialValue = 90,
         primaryColor = white,
         secondaryColor = Purple200 ,
         terciaryColor = Purple700,
