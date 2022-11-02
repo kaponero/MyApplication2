@@ -163,7 +163,7 @@ fun FrequencyScreen(navController: NavController,
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(15.dp),
+                        .padding(0.dp, 15.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ){
@@ -191,13 +191,15 @@ fun FrequencyScreen(navController: NavController,
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         Column(
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            modifier = Modifier
+                                .weight(2f),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+
                         ) {
                         Spacer(modifier = Modifier.height(30.dp))
                             ArcIndicator(
                                 modifier = Modifier
-                                    .height(250.dp)
-                                    .width(250.dp),
+                                    .size(250.dp),
                                 initialValue = viewModel.frequency,
                                 primaryColor = white,
                                 secondaryColor = Purple200,
@@ -206,6 +208,8 @@ fun FrequencyScreen(navController: NavController,
                                 )
                         }
                         Column(
+                            modifier = Modifier
+                                .weight(1f),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ){
                             BarIndicator(

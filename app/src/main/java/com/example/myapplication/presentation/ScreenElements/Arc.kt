@@ -33,21 +33,22 @@ fun ArcIndicator(
 
 ){
 
-    var danger_colo: Color = secondaryColor
-    var ok_colo: Color = secondaryColor
+    var danger_colo_45: Color = secondaryColor
+    var danger_colo_135: Color = secondaryColor
+    var ok_colo: Color = primaryColor
 
     var degrees_frec = 0
     if(initialValue<=0){
         degrees_frec = 0
     }else if (initialValue<100){
         degrees_frec = initialValue*44/100
-        danger_colo = terciaryColor
+        danger_colo_45 = terciaryColor
     } else if (initialValue<121){
         degrees_frec = (initialValue - 100)*90/20 + 45
         ok_colo = hand_green
-    }else if (initialValue<160){
-        degrees_frec = 136/121*initialValue
-        danger_colo = terciaryColor
+    }else if (initialValue<161){
+        degrees_frec = (initialValue*136)/121
+        danger_colo_135 = terciaryColor
     }else
         degrees_frec = 0
 
@@ -70,6 +71,22 @@ fun ArcIndicator(
             val circleThickness = width/25f
             circleCenter = Offset(x = width/2f, y = height/2f)
 
+            drawArc(
+                color = primaryColor,
+                startAngle = 180f,
+                sweepAngle = 180f,
+                style = Stroke (
+                    width = circleThickness*0.1f),
+                useCenter = false,
+                size = Size(
+                    width = circleRadius * 2.4f,
+                    height = circleRadius * 2.4f
+                ),
+                topLeft = Offset(
+                    (width - circleRadius * 2.4f)/2f,
+                    (height - circleRadius * 2.4f)/2f
+                )
+            )
 
             drawArc(
                 brush = Brush.radialGradient(
@@ -90,7 +107,7 @@ fun ArcIndicator(
                 )
             )
             drawArc(
-                color = danger_colo,
+                color = danger_colo_45,
                 startAngle = 180f,
                 sweepAngle = (45f),
                 style = Stroke(
@@ -126,7 +143,7 @@ fun ArcIndicator(
                 )
             )
             drawArc(
-                color = danger_colo,
+                color = danger_colo_135,
                 startAngle = 315f,
                 sweepAngle = (45f),
                 style = Stroke(
@@ -173,9 +190,9 @@ fun ArcIndicator(
                             }else
                                 initialValue} cpm",
                         circleCenter.x,
-                        circleCenter.y + 60.dp.toPx()/1f,
+                        circleCenter.y + (circleRadius/4) .dp.toPx()/1f,
                         Paint().apply {
-                            textSize = 25.sp.toPx()
+                            textSize = (circleRadius/10).sp.toPx()
                             textAlign = Paint.Align.CENTER
                             color = white.toArgb()
                             isFakeBoldText = true
@@ -197,8 +214,8 @@ fun Preview(){
     ArcIndicator(
         modifier = Modifier
             .size(250.dp)
-            .background(Purple500),
-        initialValue = 90,
+            .background(gray),
+        initialValue = 131,
         primaryColor = white,
         secondaryColor = Purple200 ,
         terciaryColor = Purple700,

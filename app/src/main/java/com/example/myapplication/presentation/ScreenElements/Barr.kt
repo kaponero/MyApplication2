@@ -39,13 +39,13 @@ fun BarIndicator(
     var barBot by remember {
         mutableStateOf(Offset.Zero)
     }
-    var positionValue by remember {
-        mutableStateOf(initialValue)
-    }
-
-    var ovalCenter by remember {
+    var recTop by remember {
         mutableStateOf(Offset.Zero)
     }
+    var barCenter by remember {
+        mutableStateOf(Offset.Zero)
+    }
+
     Box(modifier = modifier){
         Canvas(modifier = Modifier
             .fillMaxSize(),
@@ -61,21 +61,29 @@ fun BarIndicator(
             val esquinas = height/25f
 
             val barThickness = width/20f
-            barTop = Offset(x = width/2f- ancho / 2f, y = height/2f - alto/2f)
-            barBot = Offset(x = width/2f- ancho / 2f, y = height/2f + alto/2f - alto_des)
+
+            var ancho_extremos = ancho*1.5f
 
             var bar_colo: Color = primaryColor
+            var top_colo: Color = primaryColor
+            var bot_colo: Color = primaryColor
+
             var valor = initialValue
+
+            barTop = Offset(x = width/2f- ancho_extremos / 2f, y = height/2f - alto/2f)
+            barBot = Offset(x = width/2f- ancho_extremos / 2f, y = height/2f + alto/2f - alto_des)
+            recTop = Offset(x = width/2f- ancho / 2f, y = height/2f - alto/2f)
+            barCenter = Offset(x = width/2f- ancho/2f , y = height/2f -alto/2f +(valor*(alto-(alto_des*0.5f))/50) )
 
             drawRoundRect(
                 size = Size(
                     width = ancho,
                     height = alto
                 ),
-                topLeft = barTop,
+                topLeft = recTop,
                 cornerRadius = CornerRadius(
-                    x = esquinas.dp.toPx(),
-                    y = esquinas.dp.toPx()
+                    x = esquinas*0.2f.dp.toPx(),
+                    y = esquinas*0.2f.dp.toPx()
                 ),
                 brush = Brush.linearGradient(
                     listOf(
@@ -91,19 +99,43 @@ fun BarIndicator(
                 valor=50
             }
 
-            if (valor<5 || valor>45){
+            if (valor<6 || valor>44){
                 bar_colo = hand_green
+                if (valor<6){
+                    top_colo = hand_green
+                }else
+                    bot_colo = hand_green
             }
-
-            ovalCenter = Offset(x = width/2f- ancho/2f , y = height/2f -alto/2f +(valor*(alto-alto_des)/50) )
 
             drawRoundRect(
                 color = bar_colo,
                 size = Size(
                     width = ancho,
+                    height = alto_des*0.5f
+                ),
+                topLeft = barCenter,
+            )
+
+            drawRoundRect(
+                color = bot_colo,
+                size = Size(
+                    width = ancho_extremos,
                     height = alto_des
                 ),
-                topLeft = ovalCenter,
+                topLeft = barBot,
+                cornerRadius = CornerRadius(
+                    x = esquinas.dp.toPx(),
+                    y = esquinas.dp.toPx()
+                )
+            )
+
+            drawRoundRect(
+                color = top_colo,
+                size = Size(
+                    width = ancho_extremos,
+                    height = alto_des
+                ),
+                topLeft = barTop,
                 cornerRadius = CornerRadius(
                     x = esquinas.dp.toPx(),
                     y = esquinas.dp.toPx()
@@ -116,7 +148,7 @@ fun BarIndicator(
                 ),
                 color = secondaryColor,
                 size = Size(
-                    width = ancho,
+                    width = ancho_extremos,
                     height = alto_des
                 ),
                 topLeft = barBot,
@@ -132,7 +164,7 @@ fun BarIndicator(
                 ),
                 color = secondaryColor,
                 size = Size(
-                    width = ancho,
+                    width = ancho_extremos,
                     height = alto_des
                 ),
                 topLeft = barTop,

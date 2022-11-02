@@ -91,6 +91,18 @@ fun About(navController: NavController,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Column() {
+                    Row(){
+                        ArcIndicator(
+                            modifier = Modifier
+                                .background(gray)
+                                .size(100.dp),
+                            initialValue = 110,
+                            primaryColor = white,
+                            secondaryColor = Purple200,
+                            terciaryColor = Purple700,
+                            circleRadius = 92f
+                        )
+                    }
                     Text(text = "Aca va la parte de invormacion como la version y de que trata el proyecto. " +
                             "Tambien podemos agregar info de como hacer el entrenamiento ",
                         textAlign = TextAlign.Center,
