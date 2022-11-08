@@ -250,6 +250,7 @@ fun FrequencyScreen(navController: NavController,
                                 )
                                 .padding(10.dp)
                         )}
+                    calculo_desplazamiento(viewModel.compresion)
                     Spacer(modifier = Modifier.height(80.dp))
                     Row() {
                         Button(onClick = {
@@ -263,8 +264,9 @@ fun FrequencyScreen(navController: NavController,
                             if (bleConnectionState == ConnectionState.Connected){
                                 viewModel.disconnect()
                             }
+                            navController.popBackStack()
                             navController.navigate(Screen.StartScreen.route) {
-                                //popUpTo(Screen.StartScreen.route)
+                                //popUpTo(Screen.FrequencyScreen.route)
                             }
                         }) {
                             Text("Terminar")

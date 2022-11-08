@@ -46,10 +46,14 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
     LaunchedEffect(false){
 
         prefs.saveTiempo(tiempo.minutos,tiempo.segundos)
-        prefs.saveScores(scores.cpm,scores.desplaza,scores.posicion)
+        prefs.saveScores(scores.cpm,scores.desplaza,scores.posicion, scores.contador)
+    }
+    var dividendo = scores.contador
+    if (dividendo == 0){
+        dividendo = 1
     }
 
-    val puntaje = ((scores.cpm).toFloat()*10/60 *.5+ (scores.desplaza).toFloat()/180*.2+ (scores.posicion).toFloat()*10/60*.3).toInt()
+    val puntaje = (((scores.cpm.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100)*.5 + (((scores.desplaza.toFloat())/dividendo)*2)*.2 + ((scores.posicion.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100)*.3).toInt()
 
     Column (modifier = Modifier.fillMaxSize()) {
         Box(
@@ -160,7 +164,7 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                         painter = painterResource(id = R.drawable.lat_minute),
                         contentDescription = "compresiones por minuto",
                         modifier = Modifier.padding(5.dp,5.dp))
-                    Text(text = "${((scores.cpm).toFloat()/60*10).roundToInt()}%",
+                    Text(text = "${((scores.cpm.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100).roundToInt()}%",
                         textAlign = TextAlign.Center,
                         color= black,
                         )
@@ -178,7 +182,7 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                         contentDescription = "posicion de la mano",
                         modifier = Modifier.padding(5.dp,5.dp),
                     )
-                    Text(text = "${((scores.posicion).toFloat()/60*10).roundToInt()}%",
+                    Text(text = "${((scores.posicion.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100).roundToInt()}%",
                         textAlign = TextAlign.Center,
                         color= black)
                 }
@@ -197,7 +201,7 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                             .rotate(90f)
                             .padding(5.dp)
                     )
-                    Text(text = "${((scores.desplaza).toFloat()/180).roundToInt()}%",
+                    Text(text = "${(((scores.desplaza.toFloat())/dividendo)*2).roundToInt()}%",
                         textAlign = TextAlign.Center,
                         color= black)
                 }
