@@ -46,6 +46,6 @@ sealed class Screen(
     ){
     object StartScreen:Screen("start_screen","Inicio", Icons.Filled.Home)
     object FrequencyScreen:Screen("freq_screen","Entrenar",Icons.Filled.ArrowForward)//temp_humid_screen
-    object About:Screen("about_screen","Hacerca de", Icons.Filled.Info)
+    object About:Screen("about_screen","Acerca de", Icons.Filled.Info)
     object SplashScreen:Screen("splash_screen","splash",Icons.Filled.Build)
 }

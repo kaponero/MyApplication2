@@ -73,7 +73,7 @@ fun About(navController: NavController,
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.8f),
+            .fillMaxHeight(0.9f),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -162,28 +162,31 @@ fun About(navController: NavController,
                 }
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
-                .padding(15.dp),
+                .height(80.dp)
+                .padding(15.dp,5.dp),
             elevation = 10.dp,
             ) {
-                Column(modifier = Modifier
-                    .fillMaxSize()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Text(
                         text = "Realizado por Labanca Alvaro y García Sebastian como Proyecto Final para la carrera"+
-                        "Bioingeniería",
+                        " Bioingeniería",
                         textAlign = TextAlign.Center,
-                        color = gray,
-                        fontSize = 15.sp
+                        color = blueGray,
+                        fontSize = 14.sp
                     )
-                }
-        }
-    }
 
-}
+                }
+            }
+        }
+
+    }
     /*
     //MainScreen(navController,onBluetoothStateChanged)
 
