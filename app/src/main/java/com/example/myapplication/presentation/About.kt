@@ -40,24 +40,24 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 fun About(navController: NavController,
     onBluetoothStateChanged:()->Unit,
     viewModel: RCPViewModel = hiltViewModel()
-){
-    MainScreen(navController,onBluetoothStateChanged)
+) {
+    MainScreen(navController, onBluetoothStateChanged)
 
-    Column (modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Purple500)
                 .weight(1f)
-        ){
-            Column (
+        ) {
+            Column(
                 modifier = Modifier
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
 
-                ){
+                ) {
                 Text(
-                    text = "Hacerca de",
+                    text = "Entrenador RCP",
                     fontSize = 25.sp,
                     modifier = Modifier
                         .padding(15.dp),
@@ -76,22 +76,23 @@ fun About(navController: NavController,
             .fillMaxHeight(0.8f),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ){
+    ) {
         Spacer(modifier = Modifier.height(50.dp))
-        Card(modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp),
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp),
             elevation = 10.dp,
 
-            ){
+            ) {
             Row(
                 modifier = Modifier
                     .padding(15.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
-            ){
+            ) {
                 Column() {
-                    Row(){
+                    Row() {
                         ArcIndicator(
                             modifier = Modifier
                                 .background(gray)
@@ -102,17 +103,87 @@ fun About(navController: NavController,
                             terciaryColor = Purple700,
                             circleRadius = 92f
                         )
+                        Text(
+                            text = "Para mejorar la maniobra de RCP las compresiones por minuto debe mantenerlas " +
+                                    "entre 100 y 120 (zona verde) en todo el entrenamiento",
+                            textAlign = TextAlign.Center,
+                            color = gray,
+                            fontSize = 15.sp
+                        )
                     }
-                    Text(text = "Aca va la parte de invormacion como la version y de que trata el proyecto. " +
-                            "Tambien podemos agregar info de como hacer el entrenamiento ",
-                        textAlign = TextAlign.Center,
-                        color= gray,
-                        fontSize = 15.sp)
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Row() {
+                        BarIndicator(
+                            modifier = Modifier
+                                .background(gray)
+                                .size(100.dp),
+                            initialValue = 50,
+                            primaryColor = white,
+                            secondaryColor = Purple200,
+                            terciaryColor = Purple700,
+                            circleRadius = 92f
+                        )
+                        Text(
+                            text = "La barra deslizante de la compresion del torax debe llegar hasta los extremos superior" +
+                                    " e inferior para una correcto maniobra",
+                            textAlign = TextAlign.Center,
+                            color = gray,
+                            fontSize = 15.sp
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Row() {
+                        Box(
+                            modifier = Modifier
+                                .size(100.dp)
+                                .background(gray),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.hand_ok),
+                                contentDescription = "mano ok",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .border(
+                                        BorderStroke(4.dp, white),
+                                        CircleShape
+                                    )
+                                    .padding(5.dp)
+                            )
+                        }
+                        Text(
+                            text = "Cuando el icono este en verde significa que la posicion de las" +
+                                    " manos es correcta",
+                            textAlign = TextAlign.Center,
+                            color = gray,
+                            fontSize = 15.sp
+                        )
+                    }
                 }
-
             }
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(15.dp),
+            elevation = 10.dp,
+            ) {
+                Column(modifier = Modifier
+                    .fillMaxSize()) {
+                    Text(
+                        text = "Realizado por Labanca Alvaro y García Sebastian como Proyecto Final para la carrera"+
+                        "Bioingeniería",
+                        textAlign = TextAlign.Center,
+                        color = gray,
+                        fontSize = 15.sp
+                    )
+                }
+        }
     }
+
+}
     /*
     //MainScreen(navController,onBluetoothStateChanged)
 
@@ -343,5 +414,5 @@ fun About(navController: NavController,
             }
         }
     }*/
-}
+
 

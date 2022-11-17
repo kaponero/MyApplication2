@@ -42,6 +42,7 @@ fun SplashScreen(navController: NavController){
         scores.desplaza = prefs.getDes()
         scores.posicion = prefs.getPos()
         scores.contador = prefs.getCon()
+        scores.cantidad = prefs.getCAN()
         //prefs.delete()
     }
 

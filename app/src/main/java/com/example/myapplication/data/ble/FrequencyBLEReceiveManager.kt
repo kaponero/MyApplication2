@@ -74,7 +74,7 @@ class FrequencyBLEReceiveManager @Inject constructor(
                     this@FrequencyBLEReceiveManager.gatt = gatt
                 } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                     coroutineScope.launch {
-                        data.emit(Resource.Success(data = FrequencyResult( 0, 0, 0, ConnectionState.Disconnected)))
+                        data.emit(Resource.Success(data = FrequencyResult( 0, 0, 0,0, ConnectionState.Disconnected)))
                     }
                     gatt.close()
                 }
@@ -131,12 +131,13 @@ class FrequencyBLEReceiveManager @Inject constructor(
                         //val multiplicator = if(value.first().toInt()> 0) -1 else 1
                         val frequency = value[0].toUByte()
                         val compresion = value[1].toInt()
-                        //val decompresion = value[3].toInt() + value[4].toInt() / 10f
                         val position = if(value[2].toInt()> 0) 1 else -1
+                        val refresco = value[3].toInt()
                         val frequencyResult = FrequencyResult(
                             frequency.toInt(),
                             compresion,
                             position,
+                            refresco,
                             ConnectionState.Connected
                         )
                         coroutineScope.launch {

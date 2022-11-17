@@ -12,6 +12,7 @@ class Prefs(val context:Context) {
     val SHARED_DES = "desplazamiento"
     val SHARED_POS = "posision_mano"
     val SHARED_CON = "contador_compresiones"
+    val SHARED_CAN = "cantidad_compresiones"
 
     val storage = context.getSharedPreferences(SHARED_NAME,0)
 
@@ -20,11 +21,12 @@ class Prefs(val context:Context) {
         storage.edit().putInt(SHARED_SEGUNDOS,seg).apply()
     }
 
-    fun saveScores(val1:Long,val2:Long, val3:Long, val4:Int){
+    fun saveScores(val1:Long,val2:Long, val3:Long, val4:Int, val5:Long){
         storage.edit().putLong(SHARED_CPM,val1).apply()
         storage.edit().putLong(SHARED_DES,val2).apply()
         storage.edit().putLong(SHARED_POS,val3).apply()
         storage.edit().putInt(SHARED_CON,val4).apply()
+        storage.edit().putLong(SHARED_CAN,val5).apply()
     }
 
     fun delete(){
@@ -32,6 +34,7 @@ class Prefs(val context:Context) {
         storage.edit().remove(SHARED_DES)
         storage.edit().remove(SHARED_POS)
         storage.edit().remove(SHARED_CON)
+        storage.edit().remove(SHARED_CAN)
         storage.edit().clear()
     }
     fun getCPM(): Long{
@@ -51,6 +54,11 @@ class Prefs(val context:Context) {
 
     fun getCon(): Int{
         val dato = storage.getInt(SHARED_CON,1)
+        return dato
+    }
+
+    fun getCAN(): Long{
+        val dato = storage.getLong(SHARED_CAN,1)
         return dato
     }
 

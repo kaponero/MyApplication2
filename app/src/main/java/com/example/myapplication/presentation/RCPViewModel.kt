@@ -32,6 +32,9 @@ class RCPViewModel @Inject constructor(
     var position by mutableStateOf(0)
         private set
 
+    var refresco by mutableStateOf(0)
+        private set
+
     var connectionState by mutableStateOf<ConnectionState>(ConnectionState.Uninitialized)
 
     private fun subscribeToChanges(){
@@ -43,6 +46,7 @@ class RCPViewModel @Inject constructor(
                         frequency = result.data.frequency
                         compresion = result.data.compression
                         position = result.data.position
+                        refresco = result.data.refresh
                     }
 
                     is Resource.Loading -> {

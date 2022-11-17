@@ -1,6 +1,7 @@
 package com.example.myapplication.presentation.ScreenElements
 
 import android.os.SystemClock
+import android.util.Log
 import androidx.compose.runtime.*
 import com.example.myapplication.MainActivity.Companion.prefs
 import kotlinx.coroutines.delay
@@ -24,15 +25,16 @@ fun rememberCountdownTimerState(
                 tiempo.segundos = 0
                 tiempo.minutos+=1
             }
-            if(cpm_value>99 && cpm_value<121){
-                scores.cpm +=1
-            }
             if (pos_value==1){
                 scores.posicion+=1
             }
             delay(step)
         }
     }
+    scores.cpm += cpm_value
+    scores.cantidad ++
+    Log.d("score",(scores.cpm.toFloat()/scores.cantidad.toFloat()).toString())
+
     return tiempo
 }
 
@@ -47,6 +49,7 @@ object scores{
     var desplaza:Long = 0
     var posicion:Long = 0
     var contador:Int = 0
+    var cantidad: Long = 0
 }
 
 fun reset_scores(){
@@ -54,6 +57,7 @@ fun reset_scores(){
     scores.desplaza = 0
     scores.posicion = 0
     scores.contador = 0
+    scores.cantidad = 0
 
 }
 
@@ -62,6 +66,14 @@ fun reset_tiempo(){
     tiempo.segundos = 0
     tiempo.minutos = 0
 }
+@Composable
+fun calculo_frecuencia(cmp_value:Int){
+    val frecuancia = remember { mutableStateOf(0) }
+    if (cmp_value != frecuancia.value){
+        scores.cpm += cmp_value
+    }
+}
+
 
 @Composable
 fun calculo_desplazamiento(des_value : Int){

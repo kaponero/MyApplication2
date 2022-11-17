@@ -35,7 +35,9 @@ import com.example.myapplication.presentation.ScreenElements.tiempo
 import com.example.myapplication.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 
 @Composable
@@ -46,14 +48,18 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
     LaunchedEffect(false){
 
         prefs.saveTiempo(tiempo.minutos,tiempo.segundos)
-        prefs.saveScores(scores.cpm,scores.desplaza,scores.posicion, scores.contador)
+        prefs.saveScores(scores.cpm,scores.desplaza,scores.posicion, scores.contador, scores.cantidad)
     }
     var dividendo = scores.contador
     if (dividendo == 0){
         dividendo = 1
     }
+    var punta_cmp = 0
+    val desvio = sqrt(((scores.cpm.toFloat()/scores.cantidad)-110).pow(2))
 
-    val puntaje = (((scores.cpm.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100)*.5 + (((scores.desplaza.toFloat())/dividendo)*2)*.2 + ((scores.posicion.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100)*.3).toInt()
+    punta_cmp = 100-desvio.toInt()
+
+    val puntaje = ((punta_cmp)*.5 + (((scores.desplaza.toFloat())/dividendo)*2)*.2 + ((scores.posicion.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100)*.3).toInt()
 
     Column (modifier = Modifier.fillMaxSize()) {
         Box(
@@ -164,7 +170,8 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
                         painter = painterResource(id = R.drawable.lat_minute),
                         contentDescription = "compresiones por minuto",
                         modifier = Modifier.padding(5.dp,5.dp))
-                    Text(text = "${((scores.cpm.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100).roundToInt()}%",
+                    Text(text = "${(scores.cpm.toFloat()/scores.cantidad).roundToInt()}",
+                        //text = "${((scores.cpm.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100).roundToInt()}%",
                         textAlign = TextAlign.Center,
                         color= black,
                         )

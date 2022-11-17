@@ -167,7 +167,9 @@ fun FrequencyScreen(navController: NavController,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ){
+                    val refresco = viewModel.refresco
                     rememberCountdownTimerState(viewModel.frequency,viewModel.compresion,viewModel.position)
+                    //calculo_frecuencia(viewModel.frequency)
                     Text(
                         text = "${if(tiempo.minutos>9){
                             tiempo.minutos
