@@ -18,7 +18,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -29,7 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
-import com.example.myapplication.MainActivity.Companion.prefs
 import com.example.myapplication.R
 import com.example.myapplication.data.ConnectionState
 import com.example.myapplication.presentation.ScreenElements.*
@@ -45,8 +43,6 @@ fun FrequencyScreen(navController: NavController,
                     onBluetoothStateChanged:()->Unit,
                     viewModel: RCPViewModel = hiltViewModel()
 ){
-    //MainScreen(navController,onBluetoothStateChanged)
-
     SystemBroadcastReceiver(systemAction = BluetoothAdapter.ACTION_STATE_CHANGED){ bluetoothState ->
         val action = bluetoothState?.action ?:return@SystemBroadcastReceiver
         if (action == BluetoothAdapter.ACTION_STATE_CHANGED){
@@ -89,7 +85,6 @@ fun FrequencyScreen(navController: NavController,
             }
         }
     }
-
 
     LaunchedEffect(false){
         reset_tiempo()
@@ -227,7 +222,6 @@ fun FrequencyScreen(navController: NavController,
                     }
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    val posision_manos: String
                     if(viewModel.position == 1 ){
                         Image(
                             painter = painterResource(id = R.drawable.hand_ok),

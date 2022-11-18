@@ -10,23 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.myapplication.MainActivity
 import com.example.myapplication.MainActivity.Companion.prefs
 import com.example.myapplication.R
 import com.example.myapplication.presentation.ScreenElements.scores
 import com.example.myapplication.presentation.ScreenElements.tiempo
-import com.example.myapplication.ui.theme.white
 import kotlinx.coroutines.delay
-
-
-var reset = true
 
 @Composable
 fun SplashScreen(navController: NavController){
@@ -46,14 +38,11 @@ fun SplashScreen(navController: NavController){
         //prefs.delete()
     }
 
-
-    LogoUner()
-    //SplashIcono()
-    //GLSLogo()
+    Logos()
 }
 
 @Composable
-fun LogoUner(){
+fun Logos(){
     
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -87,44 +76,9 @@ fun LogoUner(){
     }
 }
 
-@Composable
-fun SplashIcono() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.iconohd),
-            contentDescription = "Logo App",
-        )
-        Text(
-            text = "EntrenadorRCP",
-            fontSize = 18.sp,
-            color = Color.Black
-        )
-    }
-}
-
-@Composable
-fun GLSLogo(){
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.glslogohd),
-            contentDescription = "Logo GLS",
-        )
-        Spacer(modifier = Modifier.height(40.dp))
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun SplashScreenPreview(){
-    LogoUner()
-    SplashIcono()
-    GLSLogo()
+    Logos()
+
 }

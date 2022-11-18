@@ -23,12 +23,12 @@ fun Navigation(onBluetoothStateChanged:()->Unit
             SplashScreen(navController = navController)
         }
         composable(Screen.StartScreen.route){
-            StartScreen(navController = navController,onBluetoothStateChanged)
+            StartScreen(navController = navController,
+                onBluetoothStateChanged)
         }
         composable(Screen.FrequencyScreen.route){
             FrequencyScreen(navController = navController,
-                onBluetoothStateChanged
-            )
+                onBluetoothStateChanged)
         }
         composable(Screen.About.route){
             About(navController = navController,
@@ -45,7 +45,7 @@ sealed class Screen(
     val icon: ImageVector
     ){
     object StartScreen:Screen("start_screen","Inicio", Icons.Filled.Home)
-    object FrequencyScreen:Screen("freq_screen","Entrenar",Icons.Filled.ArrowForward)//temp_humid_screen
+    object FrequencyScreen:Screen("freq_screen","Entrenar",Icons.Filled.ArrowForward)
     object About:Screen("about_screen","Acerca de", Icons.Filled.Info)
     object SplashScreen:Screen("splash_screen","splash",Icons.Filled.Build)
 }

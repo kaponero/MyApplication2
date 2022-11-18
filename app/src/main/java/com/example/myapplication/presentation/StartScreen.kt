@@ -1,28 +1,22 @@
 package com.example.myapplication.presentation
+import android.bluetooth.BluetoothAdapter
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.vector.VectorProperty
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,9 +26,8 @@ import com.example.myapplication.MainActivity.Companion.prefs
 import com.example.myapplication.R
 import com.example.myapplication.presentation.ScreenElements.scores
 import com.example.myapplication.presentation.ScreenElements.tiempo
+import com.example.myapplication.presentation.permissions.SystemBroadcastReceiver
 import com.example.myapplication.ui.theme.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlin.math.pow
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -42,6 +35,13 @@ import kotlin.math.sqrt
 
 @Composable
 fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
+
+    SystemBroadcastReceiver(systemAction = BluetoothAdapter.ACTION_STATE_CHANGED){ bluetoothState ->
+        val action = bluetoothState?.action ?:return@SystemBroadcastReceiver
+        if (action == BluetoothAdapter.ACTION_STATE_CHANGED){
+            onBluetoothStateChanged()
+        }
+    }
 
     MainScreen(navController,onBluetoothStateChanged)
 
@@ -54,10 +54,9 @@ fun StartScreen(navController: NavController,onBluetoothStateChanged:()->Unit){
     if (dividendo == 0){
         dividendo = 1
     }
-    var punta_cmp = 0
     val desvio = sqrt(((scores.cpm.toFloat()/scores.cantidad)-110).pow(2))
 
-    punta_cmp = 100-desvio.toInt()
+    val punta_cmp = 100-desvio.toInt()
 
     val puntaje = ((punta_cmp)*.5 + (((scores.desplaza.toFloat())/dividendo)*2)*.2 + ((scores.posicion.toFloat())/(60*tiempo.minutos + tiempo.segundos)*100)*.3).toInt()
 
